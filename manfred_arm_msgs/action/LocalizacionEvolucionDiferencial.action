@@ -1,0 +1,9 @@
+#goal definition
+bool dummyFlagGoal
+---
+#result definition
+# Ubicación del robot en el sistema de referencia global (SRG)
+geometry_msgs/PoseStamped ubicacionRobotSRG
+---
+#feedback
+bool dummyFlagFeedback

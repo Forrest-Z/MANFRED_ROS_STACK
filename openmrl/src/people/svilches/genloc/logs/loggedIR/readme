@@ -1,0 +1,3 @@
+This folder contains saved logs sent from the sensor to the computer via Serial port.
+The filename specifies the position of the robot in x,y,theta, with _ separated decimals.
+The log contains two columns: angle of the servo (in rads) and distance to the object (m)

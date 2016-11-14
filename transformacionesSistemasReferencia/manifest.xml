@@ -1,0 +1,9 @@
+<package>
+  <description>
+     Operaciones para transformar coordenadas entre diferentes sistemas de referencia situados en las articulaciones del robot.
+  </description>
+  <author>jfrascon</author>
+  <license>BSD</license>
+  <depend package="roscpp" />
+  <depend package="tf" />
+</package>

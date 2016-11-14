@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<!-- DATOS DEL ROBOT USADO -->
+<RelacionReduccion>20</RelacionReduccion>
+<CuentasEncoder>500</CuentasEncoder>
+<FactorMultiplicativoCuentasPMAC>4</FactorMultiplicativoCuentasPMAC>
+<RadioRuedaM>0.076</RadioRuedaM>
+<RadioBaseM>0.2496</RadioBaseM>
+<VelocidadRuedaMaximaMpS>0.050</VelocidadRuedaMaximaMpS> <!-- V2 -->
+<!--?? <VelocidadRuedaMinimaMpS>0.0436</VelocidadRuedaMinimaMpS>--> <!-- V1 -->
+<AceleracionRuedaMaximaMpS2>0.100</AceleracionRuedaMaximaMpS2>
+<AceleracionRuedaMaximaRotacionMpS2>0.050</AceleracionRuedaMaximaRotacionMpS2>
+<VelocidadAngularBaseMaximaGpS>10.000</VelocidadAngularBaseMaximaGpS><!-- W2 -->
+<VelocidadAngularBaseMinimaGpS>2.000</VelocidadAngularBaseMinimaGpS><!-- W1 -->
+<!--<ErrorOrientacionMaximoG>180</ErrorOrientacionMaximoG>-->
+<ErrorOrientacionMinimoG>5</ErrorOrientacionMinimoG>
+<TiempoMaximoMediaCurvaSS>0.200</TiempoMaximoMediaCurvaSS><!-- Número divisible por 2 -->
+<TiempoMinimoMediaCurvaSS>0.010</TiempoMinimoMediaCurvaSS><!-- Número divisible por 2 -->
+<DeltaTiempoDesplazamientoS>0.00</DeltaTiempoDesplazamientoS>
+<!-- DATOS DEL LASER USADO-->
+<DistanciaMedibleMaximaM>7.000</DistanciaMedibleMaximaM>
+<AnguloBarridoMaximoG>190.000</AnguloBarridoMaximoG>
+<ResolucionAngularG>0.250</ResolucionAngularG>
+<!-- 
+ El valor de 'cDist3SigmaM' se ha obtenido de la 
+ pagina 110 del manual 'Instrucciones_de_servicio.pdf' del laser SICKS3000.
+ 3 sigma ==> +-62 mm
+ Error sistematico ==> +-5 mm
+ Resutlado 5mm + 62 mm = 67 mm aprox 70 mm
+-->	
+<DistanciaTresSigmaM>0.070</DistanciaTresSigmaM>
+<!-- DATOS DEL ALGORITMO DE LOCALIZACION GLOBAL CON EVOLUCION DIFERENCIAL (ALGED) -->
+<TasaCruce>0.750</TasaCruce>
+<FactorAtenuacion>0.850</FactorAtenuacion>
+ <!-- Distancia de traslacion del individuo del ALGED en al mapa. Unidad: celdas (de ahí la C final) -->
+<DistanciaTraslacionC>1.000</DistanciaTraslacionC>
+<LadoConvergenciaM>1.000</LadoConvergenciaM>
+<NumeroElementosPoblacion>500</NumeroElementosPoblacion>
+<NumeroElementosPoblacionConvergencia>50</NumeroElementosPoblacionConvergencia>
+<NumeroIteraciones>200</NumeroIteraciones>
+<NumeroIteracionesConvergencia>20</NumeroIteracionesConvergencia>
+<CoeficienteIncrementoHazLaser>12</CoeficienteIncrementoHazLaser>
+<CoeficienteIncrementoHazLaserConvergencia>12</CoeficienteIncrementoHazLaserConvergencia>
+<!-- DATOS DEL MAPA USADO -->
+<!--<Mapa>/mapas/Mapa_parcial_2.bmp</Mapa>
+<TamanioCeldaM>0.05</TamanioCeldaM>-->
+

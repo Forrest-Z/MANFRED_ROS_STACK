@@ -1,0 +1,11 @@
+# A service definition for a message to send to the pmac2pci
+# Header header
+
+# Character chain with the message you want to send
+string send
+
+---
+# Character chain with the message the pmac sends back
+string answer
+
+int64 error_code

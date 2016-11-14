@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<robot name="Manfred">
+
+<link name="link_base">
+  <visual>
+    <origin xyz="-0.111 0 0.119" rpy="0 0 0" />
+    <geometry>
+      <box size="0.730 0.550 0.235" />
+    </geometry>
+    <material name="Azul">
+      <color rgba="0.000 0.000 1.000 1"/>
+    </material>
+  </visual>	
+</link>
+
+<link name="link_base_desp"/>
+
+<joint name="joint_base_base_desp" type="fixed">
+  <parent link="link_base" />
+  <child link="link_base_desp" />
+  <origin xyz="0 -0.100 0" rpy="0 0 0" />
+</joint>
+
+<link name="link_laser">
+  <visual>
+    <origin xyz="-0.013 0 0.03" rpy="0 0 0" />
+    <geometry>
+      <box size="0.160 0.155 0.185" />
+    </geometry>
+    <material name="Amarillo">
+      <color rgba="0.961 0.796 0.102 1"/>
+    </material>
+  </visual>	
+</link>	
+	
+<joint name="joint_base_laser" type="fixed">
+<parent link="link_base" />
+<child link="link_laser" />
+<origin xyz="0.261 0 0.339" rpy="0 0 0" />
+</joint>
+
+<link name="link_plancha_bajo_laser">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <box size="0.170 0.220 0.015" />
+    </geometry>
+    <material name="Gris">
+      <color rgba="0.659 0.659 0.659 1"/>
+    </material>
+  </visual>	
+</link>	
+
+<joint name="joint_base_plancha_bajo_laser" type="fixed">
+<parent link="link_base" />
+<child link="link_plancha_bajo_laser" />
+<origin xyz="0.197 0 0.244" rpy="0 0 0" />
+</joint>
+
+
+<link name="link_plancha_der_laser">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <box size="0.049 0.015 0.185" />
+    </geometry>
+    <material name="Gris" />
+  </visual>	
+</link>	
+
+<joint name="joint_base_plancha_lateral_der_laser" type="fixed">
+<parent link="link_base" />
+<child link="link_plancha_der_laser" />
+<origin xyz="0.202 -0.103 0.344" rpy="0 0 0" />
+</joint>
+
+<link name="link_plancha_izq_laser">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <box size="0.049 0.015 0.185" />
+    </geometry>
+    <material name="Gris" />
+  </visual>	
+</link>	
+
+<joint name="joint_base_plancha_lateral_izq_laser" type="fixed">
+<parent link="link_base" />
+<child link="link_plancha_izq_laser" />
+<origin xyz="0.202 0.103 0.344" rpy="0 0 0" />
+</joint>
+
+<link name="link_torso">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <box size="0.559 0.236 1.314" />
+    </geometry>
+    <material name="Azul" />
+  </visual>	
+</link>	
+
+<joint name="joint_base_torso" type="fixed">
+<parent link="link_base" />
+<child link="link_torso" />
+<origin xyz="-0.197 0 0.893" rpy="0 0 0" />
+</joint>
+
+ 
+</robot>

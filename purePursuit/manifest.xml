@@ -1,0 +1,24 @@
+<package>
+  <description brief="purePursuit">
+
+     purePursuit
+
+  </description>
+  <author>Juan Fco Rascón Crespo, email:jfrascon@gmail.com</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/purePursuit</url>
+  <!--<depend package="actionlib"/>-->
+  <!--<depend package="actionlib_msgs"/>-->
+  <!--<depend package="geometry_msgs"/>-->    
+  <depend package="localizacionEvolucionDiferencial"/>
+ <!-- <depend package="odometria"/>-->
+
+  <depend package="nav_msgs"/>
+  <depend package="pmac"/>
+  <depend package="roscpp"/>
+  <depend package="tf"/>
+  <!--<depend package="rospy" />-->   
+</package>
+
+

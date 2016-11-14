@@ -1,0 +1,10 @@
+<package>
+     <author>jfrascon</author>
+     <description>
+          Teleoperation of Manfred from keyboard.
+  </description>
+     <license>BSD</license>
+     <depend package="geometry_msgs" />     
+     <depend package="roscpp" />
+     <depend package="pmac" />
+</package>

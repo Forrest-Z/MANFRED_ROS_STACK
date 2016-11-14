@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0  Date: Mon 12 Dec 2011 11:49:59 PM CET
+#
+$CMP CD4097B
+D CMOS Double Multiplexer
+K Multiplexer
+F /home/svilches/tech/devProjects/skyBotSensorRig/CD4097.pdf
+$ENDCMP
+#
+#End Doc Library

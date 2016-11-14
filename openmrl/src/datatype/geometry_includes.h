@@ -1,0 +1,8 @@
+#include "geometry/angle.h"
+#include "geometry/path2d.h"
+#include "geometry/segment.h"
+#include "geometry/geometryfunctions.h"
+#include "geometry/point.h"
+#include "geometry/vector2d.h"
+#include "geometry/mrmath.h"
+#include "geometry/segment2.h"

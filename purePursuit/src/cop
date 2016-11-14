@@ -1,0 +1,305 @@
+int rotacion(const int& descriptorDPRAM, const double& angulo_rad, algoritmoPurePursuit& algPP)
+{
+
+// Comprobar errores.
+  if (algPP.velAngBaseMax <= 0 || algPP.acelRuedaMax <= 0 || algPP.radioBase <= 0)
+  {
+
+    return -1;
+
+  }
+
+  // Angulo que debe rotar por el robot. Entre [-pi, pi].
+  double deltaTheta = angulo_rad;
+
+  if (deltaTheta == 0)
+  {
+    cout << "El robot no rota" << endl;
+    return -1;
+  }
+
+  // La PMAC trabaja con numeros reales de 32 bits, es decir, float.
+  float comandosPDer[2] = {0.0f, 0.0f};
+  float comandoVDer = 0.0f;
+  int comandosT[2] = {0, 0};
+
+  double signoDeltaThetaDosPi = (deltaTheta < 0 ? -1 : deltaTheta > 0) * dosPi;
+
+  if (fabs(deltaTheta) > dosPi)
+  {
+    // Si el valor fabs(deltaTheta) esta entre 0 y 2*pi el valor retornado por la operacion
+    // fmodf(deltaTheta, signoDeltaThetaDosPi) es el valor de su primer argumento, es decir,
+    // deltaTheta.
+    // Si el valor de fabs(deltaTheta) es mayor que 2*pi, entonces la operacion fmod retorna
+    // el angulo equivalente entre 0 y 2*pi.
+    deltaTheta = fmod(deltaTheta, signoDeltaThetaDosPi);
+  }
+
+  // Finalmente hacer que el valor de deltaTheta este entre -pi y pi.
+  if (fabs(deltaTheta) > M_PI)
+  {
+    deltaTheta -= signoDeltaThetaDosPi;
+  }
+
+  int signoDeltaTheta = (deltaTheta < 0 ? -1 : deltaTheta > 0);
+
+  // Distancia que tiene que recorrer cada rueda. En cm.
+  double arco = deltaTheta * algPP.radioBase;
+  double arcoValorAbsoluto = fabs(arco);
+
+  // Pasar la velocidad angular de la base de grad/s a rad/s.
+  //double velAngBaseMax = radGrad * algPP.velAngBaseMax;
+
+  float acel = 10.0; // cm/s^2
+  float vel = 10; // cm/s
+
+  float T = ceilf(vel / acel); // s
+
+  float theta_u1 = (4 * vel * T) / algPP.radioBase;
+  float theta_u2 = theta_u1 / 2;
+
+  if(fabs(deltaTheta) >= theta_u1){
+
+  }
+  else if(fabs(deltaTheta) >= theta_u2 && fabs(deltaTheta) < theta_u1){
+
+  }
+  else{
+
+  }
+
+  // floorf para no exceder la velocidad angular maxima de la base. Dividir y multiplicar por 10
+  // para usar un decimal en la velocidad de las ruedas. En cm/s.
+  double velRuedaRotMax = floorf(10.0f * velAngBaseMax * algPP.radioBase) / 10.0f;
+
+  // Tiempo en pasar de 0 cm/s a (velRuedaRotMax/2) cm/s usando la aceleracion maxima. La funcion
+  // ceilf es para asegurar un numero entero (la PMAC necesita que el tiempo que dura un comando PVT
+  // sea un numero entero) y que no se exceda la aceleracion. En ms.
+  int tiempoMediaCurvaSRot_1 = ceilf(1000.0f * velRuedaRotMax / algPP.acelRuedaMax);
+
+  //double acelRuedaRotMaxReal = velRuedaRotMax/(tiempoMediaCurvaSRot_1/1000.0f);
+  // El numero 1000.0f pasa al numerador.
+  double acelRuedaRotMaxReal = 1000.0f * velRuedaRotMax / tiempoMediaCurvaSRot_1;
+
+  // Desplazamiento realizado en el tiempo que dura la primera curvaS. En cm.
+  double desplazRot_1 = velRuedaRotMax * (tiempoMediaCurvaSRot_1 / 1000.0f);
+
+  // Desplazamiento si solo considero: CurvaS-CurvaS.
+  double desplazRot2CurvaS = 2 * desplazRot_1;
+
+#ifdef DEBUG
+
+  cout << endl;
+  cout << "deltaTheta: " << gradRad * deltaTheta << " grad" << endl;
+  cout << "arco: " << arco << " cm (+ rotacion antihoraria, - rotacion horaria)" << endl;
+  cout << "velAngBaseMax: " << gradRad * velAngBaseMax << " grad/s" << endl;
+  cout << "velRuedaRotMax: " << velRuedaRotMax << " cm/s" << endl;
+  cout << "tiempoMediaCurvaSRot_1: " << tiempoMediaCurvaSRot_1 << " ms " << endl;
+  cout << "acelRuedaRotMaxReal: " << acelRuedaRotMaxReal << " cm/s^2" << endl;
+  cout << "desplazRot_1: " << desplazRot_1 << " cm" << endl;
+  cout << "desplazRot2CurvaS: " << desplazRot2CurvaS << " cm" << endl;
+
+#endif
+
+  if (velRuedaRotMax == 0 || tiempoMediaCurvaSRot_1 == 0)
+  {
+    cout << "velRuedaRotMax = 0 o tiempoMediaCurvaSRot_1 = 0" << endl;
+    return -1;
+  }
+
+  if (arcoValorAbsoluto > desplazRot2CurvaS)
+  {
+
+    cout << "[  >  ]  " << endl;
+
+    // Tiempo que dura la mitad de la primera curva S. Numero entero en ms.
+    comandosT[0] = tiempoMediaCurvaSRot_1;
+    // Recorrido con signo. En cm y con decimales.
+    comandosPDer[0] = static_cast<float>(signoDeltaTheta * desplazRot_1);
+    // Velocidad con 1 decimal. En cm/s.
+    comandoVDer = static_cast<float>(signoDeltaTheta * velRuedaRotMax);
+    // Recorrido con signo realizado durante el segundo tramo.
+    // El segundo tramo se recorre a velocidad constante, que es
+    // la velocidad final del tramo 1.
+    double desplazRot_2 = arcoValorAbsoluto - desplazRot2CurvaS;
+
+#ifdef DEBUG
+
+    cout << "desplazRot_2: " << desplazRot_2 << " cm" << endl;
+
+#endif
+
+    // round porque no tengo que satisfacer ninguna restriccion, solo que el tiempo sea
+    // numero entero. La PMAC necesita numeros enteros para el tiempo. En ms.
+    // int tiempoMediaCurvaSRot_2 = round(1000 * desplazRot_2/(2*velRuedaRotMax));
+    // 1000/2 = 500
+    // round(X) equivale a floorf(X + 0'5)
+    int tiempoMediaCurvaSRot_2 = static_cast<int>(round(500.0f * (desplazRot_2 / velRuedaRotMax)));
+    // Recalcular el valor de desplazRot_2, ya que tiempoMediaCurvaSRot_2 ha sido redondeado.
+    // desplazRot_2 = 2 * velRuedaRotMax*(tiempoMediaCurvaSRot_2/1000.0f);
+    // 2/1000  = 2*10^-3 = 2.0e-3
+    desplazRot_2 = 2.0e-3 * velRuedaRotMax * tiempoMediaCurvaSRot_2;
+    comandosT[1] = tiempoMediaCurvaSRot_2;
+    comandosPDer[1] = static_cast<float>(signoDeltaTheta * desplazRot_2);
+
+#ifdef DEBUG
+
+    cout << "tiempoMediaCurvaSRot_2: " << tiempoMediaCurvaSRot_2 << " ms" << endl;
+    cout << "desplazRot_2 corregido: " << desplazRot_2 << " m" << endl;
+
+#endif
+
+  }
+  else if (arcoValorAbsoluto < desplazRot2CurvaS)
+  {
+
+    cout << "[  <  ]  " << endl;
+
+    // Uso acelRuedaRotMaxReal en lugar de acelRuedaMax, porque la primera acel (acelRuedaRotMaxReal) es la
+    // que se obtuvo al usar velRuedaRotMax y tiempoMediaCurvaSRot_1.
+    // Al usar el mismo valor de acel junto con un arco que es menor que
+    // desplazRot2CurvaS me aseguro que la vel hallada es menor que la
+    // velRuedaRotMax.
+    double velRuedaDer = floorf(10.0f * sqrt((arcoValorAbsoluto * acelRuedaRotMaxReal) / 2.0f)) / 10.0f;
+    int tiempoMediaCurvaS = ceilf(1000.0f * velRuedaDer / algPP.acelRuedaMax);
+    double desplazamiento = velRuedaDer * (tiempoMediaCurvaS / 1000.0f);
+    // Primer valor: tiempo que dura la mitad de la primera curva S. Numero entero en ms.
+    // Segundo valor: cero porque NO hay tramo a velocidad constante.
+    // Tercer valor: tiempo que dura la mitad de la segunda curva S. Numero entero en ms.
+    comandosT[0] = tiempoMediaCurvaS;
+    comandosT[1] = 0;
+    // Recorridos con signo. En cm.
+    comandosPDer[0] = static_cast<float>(signoDeltaTheta * desplazamiento);
+    comandosPDer[1] = 0.0f;
+    // Velocidad de la rueda derecha en cm/s.
+    comandoVDer = static_cast<float>(signoDeltaTheta * velRuedaDer);
+
+  }
+// arco = desplazMax
+  else if (arcoValorAbsoluto == desplazRot2CurvaS)
+  {
+
+    cout << "[  ==  ]  " << endl;
+    // Primer valor: tiempo que dura la mitad de la primera curva S. Numero entero en ms.
+    // Segundo valor: cero porque NO hay tramo a velocidad constante.
+    // Tercer valor: tiempo que dura la mitad de la segunda curva S. Numero entero en ms.
+    comandosT[0] = tiempoMediaCurvaSRot_1;
+    comandosT[1] = 0;
+    comandosPDer[0] = static_cast<float>(signoDeltaTheta * desplazRot_1);
+    comandosPDer[1] = 0.0f;
+    comandoVDer = static_cast<float>(signoDeltaTheta * velRuedaRotMax);
+
+  }
+
+  double deltaThetaReal = (comandosPDer[0] + comandosPDer[1] + comandosPDer[0]) / algPP.radioBase;
+
+#ifdef DEBUG
+
+  cout << endl;
+  cout << "deltaThetaReal: " << gradRad * deltaThetaReal << " grados " << endl;
+  cout << endl;
+  cout << "PVT(" << comandosT[0] << ")" << endl;
+  cout << "X(" << comandosPDer[0] << "):" << comandoVDer << "Y(" << -comandosPDer[0] << "):" << -comandoVDer << endl;
+
+  if (comandosT[1])
+  {
+
+    cout << "PVT(" << comandosT[1] << ")" << endl;
+    cout << "X(" << comandosPDer[1] << "):" << comandoVDer << "Y(" << -comandosPDer[1] << "):" << -comandoVDer << endl;
+
+  }
+
+  cout << "PVT(" << comandosT[0] << ")" << endl;
+  cout << "X(" << comandosPDer[0] << "):" << 0.0f << "Y(" << -comandosPDer[0] << "):" << 0.0f << endl;
+
+#endif
+
+  int error = 0;
+  char datosParaPC[NUM_MAX_CARAC_BUFFER_DPRAM_PC];
+  memset(datosParaPC, '\0', NUM_MAX_CARAC_BUFFER_DPRAM_PC * sizeof(char));
+
+#ifndef PRUEBA
+
+  if (escribirRotacionBaseDPRAM(descriptorDPRAM, comandosPDer, &comandoVDer, comandosT, datosParaPC, &error))
+  {
+
+    std::cout << "NO SE HA PODIDO ROTAR" << std::endl;
+
+  }
+
+  if (error != 0)
+  {
+
+    std::cout << "ERROR INDICADO POR LA PMAC: " << error << std::endl;
+
+  }
+
+#ifdef DEBUG
+
+  cout << "COMANDOS DE ROTACION ESCRITOS EN DPRAM" << endl;
+
+#endif
+
+//cout <<"datosParaPC: %s.\n", datosParaPC);
+  int bitVelocidadCeroMotor1 = -1;
+// EL bit de velocidad 0 vale 1 porque el robot esta parado. En el momento que
+// se mueve se pone a 1. Cuando el robot se para se pone a 1.
+
+// LEER ESTADO MIENTRAS EL ROBOT ESTE PARADO
+//int i = 0;
+
+  do
+  {
+
+    //cout << "\n[  " << i << "  ]" << endl;
+
+    usleep(50000);
+
+    if (leerEstadoMotor(descriptorDPRAM, 1, &bitVelocidadCeroMotor1))
+    {
+
+      return -1;
+
+    }
+
+    //i++;
+
+  } while (bitVelocidadCeroMotor1);
+
+#ifdef DEBUG
+
+  printf("\nROBOT EN MOVIMIENTO\n");
+
+#endif
+
+// LEER ESTADO MIENTRAS EL ROBOT ESTE EN MOVIMIENTO
+//i = 0;
+
+  do
+  {
+
+    //cout << "\n[  " << i << "  ]" << endl;
+
+    usleep(50000);
+
+    if (leerEstadoMotor(descriptorDPRAM, 1, &bitVelocidadCeroMotor1))
+    {
+
+      return -1;
+
+    }
+
+    //i++;
+
+  } while (!bitVelocidadCeroMotor1);
+
+#ifdef DEBUG
+
+  printf("\nROBOT PARADO.\n");
+
+#endif
+
+#endif
+
+  return 0;
+}

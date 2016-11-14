@@ -1,0 +1,43 @@
+# simple.world - basic world file example
+# Authors: Richard Vaughan
+# $Id$
+
+include "./common/miniskybot.inc"
+include "./common/map.inc"
+
+# time to pause (in GUI mode) or quit (in headless mode (-g)) the simulation
+quit_time 3600 # 1 hour of simulated time
+
+paused 0
+
+resolution 0.02
+
+# configure the GUI window
+window
+(
+  size [ 635.000 666.000 ] # in pixels
+  scale 54.876   # pixels per meter
+  center [ -7.153  -5.405 ]
+  rotate [ 0  0 ]
+  			
+  show_data 1              # 1=on 0=off
+)
+
+# load an environment bitmap
+floorplan
+( 
+  name "cave"
+  size [16.000 16.000 0.800]
+  pose [0 0 0 0]
+  bitmap "bitmaps/cave.png"
+)
+
+
+miniskybot
+(		  
+  # can refer to the robot by this name
+  name "skybot"
+  pose [ -4.394 -5.396 0 45.000 ] 
+
+)
+

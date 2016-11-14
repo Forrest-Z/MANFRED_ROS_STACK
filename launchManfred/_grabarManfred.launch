@@ -1,0 +1,29 @@
+<launch>
+   <arg name="manfred_bag" default="cualquiera" />
+
+  <!--Lanzamos el nodo del láser -->
+   <node pkg="sicks3000" name="sicks3000" type="bin_nodo_sicks3000" />
+
+  <!-- Lanzamos el nodo de odometría -->
+   <node pkg="odometria" name="odometria" type="bin_nodo_odometria" />
+
+  <!--lazamos el node de transformacion-->
+   <node pkg="transformaciones_estaticas" name="transformaciones_estaticas" type="bin_nodo_transf_estaticas" />   
+      <param name="use_sim_time" value="true"/>
+
+  <!--lanzamos el nodo gmapping-->
+   <node pkg="gmapping" name="gmapping" type="slam_gmapping" args="scan:=topic_sicks3000" > 
+    <param name="odom_frame" value="sr_odom" />
+    <param name="base_frame" value="sr_base" />
+   </node>
+
+  <!--lanzamos el visor-->
+   <node pkg="rviz" name="rviz" type="rviz" />
+
+  <!--creamos un bag en el que grabamos los datos de odometría y láser proporcionados por manfred-->
+  <!-- <node pkg="rosbag" name="nodo_rosbag" type="record" args="-O /home/manfred/Dropbox/Manfred_v2/$(arg manfred_bag) topic_sicks3000 topic_odometria topic_transf_estaticas" /> -->
+   <node pkg="rosbag" name="nodo_rosbag" type="record" args="-O /home/manfred/Dropbox/Manfred_v2/$(arg manfred_bag) -a"/>
+  
+</launch>
+
+

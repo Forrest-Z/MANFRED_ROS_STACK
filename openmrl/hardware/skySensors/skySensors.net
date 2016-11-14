@@ -1,0 +1,160 @@
+# EESchema Netlist Version 1.1 created  Wed 14 Dec 2011 11:09:43 AM CET
+(
+ ( /4EE6826E CON2X5A CT1 ~
+  ( 1 /PD3 )
+  ( 2 ? )
+  ( 3 /PD7 )
+  ( 4 /PC1 )
+  ( 5 VCC )
+  ( 6 GND )
+  ( 7 /PC0 )
+  ( 8 /PD6 )
+  ( 9 /PD4 )
+  ( 10 /PD2 )
+ )
+ ( /4EE68272 $noname$ CT_DOC1 EP_DOC
+ )
+ ( /4EE68271 $noname$ CT_DOC2 CT_DOC
+ )
+ ( /4EE68DD6 LED-5MM D0 LED
+  ( 1 N-000030 )
+  ( 2 N-000032 )
+ )
+ ( /4EE68D38 LED-5MM D1 LED
+  ( 1 N-000006 )
+  ( 2 N-000011 )
+ )
+ ( /4EE68275 GP2Y0A21 IR_L0 GP2Y0A21
+  ( 1 /X6 )
+  ( 2 GND )
+  ( 3 VCC )
+ )
+ ( /4EE686AB GP2Y0A21 IR_L1 GP2Y0A21
+  ( 1 /Y6 )
+  ( 2 GND )
+  ( 3 VCC )
+ )
+ ( /4EE686B2 GP2Y0A21 IR_L2 GP2Y0A21
+  ( 1 /X7 )
+  ( 2 GND )
+  ( 3 VCC )
+ )
+ ( /4EE686BE GP2Y0A21 IR_L3 GP2Y0A21
+  ( 1 /Y4 )
+  ( 2 GND )
+  ( 3 VCC )
+ )
+ ( /4EE686C5 GP2Y0A21 IR_L4 GP2Y0A21
+  ( 1 /Y5 )
+  ( 2 GND )
+  ( 3 VCC )
+ )
+ ( /4EE68B8F GP2D150A IR_S0 GP2Y0A21
+  ( 1 /X4 )
+  ( 2 GND )
+  ( 3 VCC )
+ )
+ ( /4EE68B95 GP2D150A IR_S1 GP2Y0A21
+  ( 1 /X5 )
+  ( 2 GND )
+  ( 3 VCC )
+ )
+ ( /4EE68DD4 R3-LARGE_PADS R1 R
+  ( 1 N-000031 )
+  ( 2 /PD6 )
+ )
+ ( /4EE68DD5 R3-LARGE_PADS R2 R
+  ( 1 VCC )
+  ( 2 N-000030 )
+ )
+ ( /4EE68D8A R3-LARGE_PADS R3 R
+  ( 1 N-000013 )
+  ( 2 /PD7 )
+ )
+ ( /4EE68D4B R3-LARGE_PADS R4 R
+  ( 1 VCC )
+  ( 2 N-000006 )
+ )
+ ( /4EE68DD7 TO92 TRT1 NPN
+  ( 1 GND )
+  ( 2 N-000031 )
+  ( 3 N-000032 )
+ )
+ ( /4EE68273 TO92 TRT2 NPN
+  ( 1 GND )
+  ( 2 N-000013 )
+  ( 3 N-000011 )
+ )
+ ( /4EE68276 DIP-24__600 U1 CD4097B
+  ( 1 /PC1 )
+  ( 2 /X7 )
+  ( 3 /X6 )
+  ( 4 /X5 )
+  ( 5 /X4 )
+  ( 6 /X3 )
+  ( 7 /X2 )
+  ( 8 /X1 )
+  ( 9 /X0 )
+  ( 10 /PD2 )
+  ( 11 /PD3 )
+  ( 12 GND )
+  ( 13 GND )
+  ( 14 /PD4 )
+  ( 15 ? )
+  ( 16 /Y6 )
+  ( 17 /PC0 )
+  ( 18 /Y5 )
+  ( 19 /Y4 )
+  ( 20 /Y3 )
+  ( 21 /Y2 )
+  ( 22 /Y1 )
+  ( 23 /Y0 )
+  ( 24 VCC )
+ )
+ ( /4EE68274 HC-SR04 US0 HC-SR04
+  ( 1 VCC )
+  ( 2 /X0 )
+  ( 3 /Y0 )
+  ( 4 GND )
+ )
+ ( /4EE68C0C HC-SR04 US1 HC-SR04
+  ( 1 VCC )
+  ( 2 /X1 )
+  ( 3 /Y1 )
+  ( 4 GND )
+ )
+ ( /4EE68C12 HC-SR04 US2 HC-SR04
+  ( 1 VCC )
+  ( 2 /X2 )
+  ( 3 /Y2 )
+  ( 4 GND )
+ )
+ ( /4EE68C19 HC-SR04 US3 HC-SR04
+  ( 1 VCC )
+  ( 2 /X3 )
+  ( 3 /Y3 )
+  ( 4 GND )
+ )
+)
+*
+{ Allowed footprints by component:
+$component D0
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component D1
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$endfootprintlist
+}

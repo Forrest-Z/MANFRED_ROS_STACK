@@ -1,0 +1,37 @@
+char incomingByte;
+
+void setup() {
+  Serial.begin(9600);     // opens serial port, sets data rate to 9600 bps
+  //Serial.println("Hi there! I'm Arduino");
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    // read the incoming byte:
+    incomingByte = Serial.read();
+    switch (incomingByte){
+    case 'i': // Send robot information to the computer
+      {
+        Serial.println("MiniSkybot");
+        Serial.println("1D IR_L01     8   0.01   0.1   0.8   0   0.05   0"); // Type, Name, FOV(deg), sigma, MinR, MaxR, X, Y, Theta
+        Serial.println("2D IR_Scanner 8   0.01   0.1   0.8   0   0.05   0  0  0  0  -1.5708   1.5708  181"); // Type, Name, FOV(deg), sigma, MinR, MaxR, X, Y, Theta, relX, relY, relTheta, startAngle, endAngle, servoSteps
+        Serial.println("END");
+        break;
+      }
+
+    case 'm': // Measure and send data to the computer
+      {
+        Serial.println("IR_L01      0.29");
+        for(int i = 0; i < 181; i++){
+          Serial.print("IR_Scanner  ");
+          Serial.print((sin(i/50.0)+1.5)/5.0);
+          Serial.print("  ");
+          Serial.println(i);
+        }
+        Serial.println("END");
+        break;
+
+      }
+    }
+  }
+}

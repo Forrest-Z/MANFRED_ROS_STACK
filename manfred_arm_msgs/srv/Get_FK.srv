@@ -1,0 +1,13 @@
+# A service definition for a standard forward kinematics service
+# the forward kinematics poses will be returned
+# Header header
+
+# joint state including: positions to be used for forward kinematics, velocity and effort
+sensor_msgs/JointState joint_state
+
+---
+# The resultant vector of PoseStamped messages that contains the (stamped) poses of the requested links
+geometry_msgs/Point32 posic
+geometry_msgs/Vector3 rpy
+
+int64 error_code

@@ -1,0 +1,6 @@
+<launch>
+
+<node pkg="localizacion_ed" name="nodo_localizacion_ed" type="bin_localizacion_ed" launch-prefix="gdb -ex run --args" output="screen"/> 
+
+
+</launch>

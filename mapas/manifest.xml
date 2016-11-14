@@ -1,0 +1,7 @@
+<package>
+     <description>
+     </description>
+     <author>jfrascon</author>
+     <license>BSD</license>
+     <depend package="roscpp"/>
+</package>

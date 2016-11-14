@@ -1,0 +1,35 @@
+SET(CWIID_INCLUDE_DIR "CWIID_INCLUDE_DIR-NOTFOUND")
+SET(CWIID_LINK_DIRECTORIES "CWIID_LINK_DIRECTORIES-NOTFOUND")
+SET(CWIID_LIBRARIES "")
+
+	set(_searching_dir /usr;/usr/local)
+	
+	foreach(_d ${_searching_dir})
+		list(APPEND _to_search_inc ${_d}/include/cwiid)
+	endforeach(_d ${_searching_dir})
+	FIND_PATH(CWIID_INCLUDE_DIR cwiid.h ${_to_search_inc})
+
+	foreach(_d ${_searching_dir})
+		list(APPEND _to_search_lib ${_d}/lib)
+		list(APPEND _to_search_lib ${_d}/lib64)
+	endforeach(_d ${_searching_dir})
+	FIND_LIBRARY(CWIID_LINK_DIRECTORIES cwiid ${_to_search_lib} NO_DEFAULT_PATH)
+	
+IF(CWIID_INCLUDE_DIR AND CWIID_LINK_DIRECTORIES)
+	SET(CWIID_FOUND "Yes")
+	STRING(REGEX REPLACE ".*/([^/]*)$" "\\1" CWIID_LIBRARIES ${CWIID_LINK_DIRECTORIES})
+	STRING(REGEX REPLACE "/[^/]*$" "" CWIID_LINK_DIRECTORIES ${CWIID_LINK_DIRECTORIES})
+	IF(LINUX)
+		SET(CWIID_LIBRARIES ${CWIID_LIBRARIES})
+	ENDIF(LINUX)
+	IF(MACOSX)
+		SET(CWIID_LIBRARIES ${CWIID_LIBRARIES})
+	ENDIF(MACOSX)
+ENDIF(CWIID_INCLUDE_DIR AND CWIID_LINK_DIRECTORIES)
+
+
+# needed to avoid putting things in ccmake gui
+set(CWIID_INCLUDE_DIR "${CWIID_INCLUDE_DIR}" CACHE INTERNAL "" FORCE)
+set(CWIID_LINK_DIRECTORIES "${CWIID_LINK_DIRECTORIES}" CACHE INTERNAL "" FORCE)
+SET(CWIID_LIBRARIES "${CWIID_LIBRARIES}" CACHE INTERNAL "" FORCE)
+

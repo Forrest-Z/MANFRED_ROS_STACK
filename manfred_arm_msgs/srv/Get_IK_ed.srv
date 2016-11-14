@@ -1,0 +1,23 @@
+# A service definition for a standard forward kinematics service
+# the inverse kinematics poses will be returned
+#Header header
+
+# actual joint state
+sensor_msgs/JointState joint_state
+#int x_inicial
+#int y_inicial
+
+#Posicion, orientación y ¿velocidad? objetivo
+geometry_msgs/Point32 goal_posic
+geometry_msgs/Vector3 goal_rpy
+
+#Velocidad cartesiana objetivo para el robot
+#geometry_msgs/Twist twist
+
+---
+# joint state including: velocity to send to the robot position
+sensor_msgs/JointState joint_state
+float64 x_final
+float64 y_final
+
+int64 error_code

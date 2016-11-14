@@ -1,0 +1,41 @@
+
+(cl:in-package :asdf)
+
+(defsystem "manfred_arm_msgs-msg"
+  :depends-on (:roslisp-msg-protocol :roslisp-utils :actionlib_msgs-msg
+               :geometry_msgs-msg
+               :sensor_msgs-msg
+               :std_msgs-msg
+)
+  :components ((:file "_package")
+    (:file "LocalizacionEvolucionDiferencialGoal" :depends-on ("_package_LocalizacionEvolucionDiferencialGoal"))
+    (:file "_package_LocalizacionEvolucionDiferencialGoal" :depends-on ("_package"))
+    (:file "LocalizacionEvolucionDiferencialAction" :depends-on ("_package_LocalizacionEvolucionDiferencialAction"))
+    (:file "_package_LocalizacionEvolucionDiferencialAction" :depends-on ("_package"))
+    (:file "LocalizacionEvolucionDiferencialResult" :depends-on ("_package_LocalizacionEvolucionDiferencialResult"))
+    (:file "_package_LocalizacionEvolucionDiferencialResult" :depends-on ("_package"))
+    (:file "ControlMoveArmAction" :depends-on ("_package_ControlMoveArmAction"))
+    (:file "_package_ControlMoveArmAction" :depends-on ("_package"))
+    (:file "LocalizacionEvolucionDiferencialActionFeedback" :depends-on ("_package_LocalizacionEvolucionDiferencialActionFeedback"))
+    (:file "_package_LocalizacionEvolucionDiferencialActionFeedback" :depends-on ("_package"))
+    (:file "ControlMoveArmActionResult" :depends-on ("_package_ControlMoveArmActionResult"))
+    (:file "_package_ControlMoveArmActionResult" :depends-on ("_package"))
+    (:file "LocalizacionEvolucionDiferencialActionResult" :depends-on ("_package_LocalizacionEvolucionDiferencialActionResult"))
+    (:file "_package_LocalizacionEvolucionDiferencialActionResult" :depends-on ("_package"))
+    (:file "ControlMoveArmActionGoal" :depends-on ("_package_ControlMoveArmActionGoal"))
+    (:file "_package_ControlMoveArmActionGoal" :depends-on ("_package"))
+    (:file "pmac_info" :depends-on ("_package_pmac_info"))
+    (:file "_package_pmac_info" :depends-on ("_package"))
+    (:file "ControlMoveArmActionFeedback" :depends-on ("_package_ControlMoveArmActionFeedback"))
+    (:file "_package_ControlMoveArmActionFeedback" :depends-on ("_package"))
+    (:file "ControlMoveArmResult" :depends-on ("_package_ControlMoveArmResult"))
+    (:file "_package_ControlMoveArmResult" :depends-on ("_package"))
+    (:file "LocalizacionEvolucionDiferencialFeedback" :depends-on ("_package_LocalizacionEvolucionDiferencialFeedback"))
+    (:file "_package_LocalizacionEvolucionDiferencialFeedback" :depends-on ("_package"))
+    (:file "LocalizacionEvolucionDiferencialActionGoal" :depends-on ("_package_LocalizacionEvolucionDiferencialActionGoal"))
+    (:file "_package_LocalizacionEvolucionDiferencialActionGoal" :depends-on ("_package"))
+    (:file "ControlMoveArmGoal" :depends-on ("_package_ControlMoveArmGoal"))
+    (:file "_package_ControlMoveArmGoal" :depends-on ("_package"))
+    (:file "ControlMoveArmFeedback" :depends-on ("_package_ControlMoveArmFeedback"))
+    (:file "_package_ControlMoveArmFeedback" :depends-on ("_package"))
+  ))

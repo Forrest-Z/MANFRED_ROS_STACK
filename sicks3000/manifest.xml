@@ -1,0 +1,9 @@
+<package>
+     <description>
+      Funciones para controlar el telémetro láser SICK S3000
+    </description>
+    <author>jfrascon</author>
+    <license>BSD</license>
+    <depend package="roscpp"/>
+    <depend package="sensor_msgs"/>
+</package>

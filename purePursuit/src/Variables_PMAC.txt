@@ -1,0 +1,6 @@
+tiempoCurvaSTramo1 [ms]			M79			DP:$D205
+tiempoCurvaSTramo2 [ms]			M80			DP:$D206
+desplazConSignoTramo1 [cm]		M81			 F:$D207
+desplazConSignoTramo2 [cm]		M82			 F:$D208
+velFinTramo1 [cm/s]				M83			 F:$D209
+jog_on							M89			 F:$D20F

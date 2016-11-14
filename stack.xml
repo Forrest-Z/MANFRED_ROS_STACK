@@ -1,0 +1,21 @@
+<stack>
+  <description brief="Unica pila que contendra todos los paquetes desarrollados para Manfred">
+  	De momento solo se usara una pila que contendra todos los paquetes desarrollados para Manfred. Quiza en el futuro
+ 	clasifiquemos los paquetes en diferentes pilas.
+  </description>
+  <author>Maintained by jfrascon and dvdalvarez</author>  
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/pila_unica</url>  
+  <depend stack="common" /> <!-- actionlib, tinyxml -->
+  <depend stack="common_msgs" /> <!-- nav_msgs, trajectory_msgs, sensor_msgs, geometry_msgs, actionlib_msgs, visualization_msgs, diagnostic_msgs -->  
+  <depend stack="geometry" /> <!-- tf, kdl, eigen, tf_conversions -->
+  <depend stack="joystick_drivers" /> <!-- joy -->
+  <depend stack="kinematics" /> <!-- kinematics_msgs -->
+  <depend stack="laser_drivers" /> <!-- hokuyo_node -->  
+  <depend stack="navigation" />
+  <depend stack="robot_model" /> <!-- urdf, kdl_parser -->
+  <depend stack="ros" /> <!-- roslib -->
+  <depend stack="ros_comm" /> <!-- std_msgs, rostest, rospy, roscpp -->
+  <depend stack="vision_opencv" /> <!-- opencv2, cv_bridge -->
+</stack>

@@ -1,0 +1,20 @@
+<package>
+	<description>
+
+		Localizacion global 2D usando evolucion diferencial
+
+	</description>
+	<author>jfrascon</author>
+	<license>BSD</license>
+<!-- Paquetes de ROS -->	
+    <depend package="geometry_msgs"/>
+<!--    <depend package="manfred_arm_msgs"/>    -->
+	<depend package="nav_msgs" />
+	<depend package="roscpp" />		
+	<depend package="sensor_msgs" />
+	<depend package="std_msgs"/>
+	<depend package="tf" />
+<!-- Paquetes propios -->	
+	<!--<depend package="odometria" />-->
+	<!--<depend package="sicks3000" />-->  
+</package>

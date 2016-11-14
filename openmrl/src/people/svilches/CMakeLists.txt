@@ -1,0 +1,13 @@
+IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/COMPILE_IT")
+	MESSAGE(STATUS "Enabling compilation of Sergio Vilches personal stuff (because of ${CMAKE_CURRENT_SOURCE_DIR}/COMPILE_IT)")
+	#ADD_SUBDIRECTORY(cppMapper)	
+	#ADD_SUBDIRECTORY(sandbox)	
+	#ADD_SUBDIRECTORY(genloc/src)
+	#ADD_SUBDIRECTORY(sim_ranger_svilches)
+	#ADD_SUBDIRECTORY(skybot-noSerial)
+	#ADD_SUBDIRECTORY(robgenloc)
+	ADD_SUBDIRECTORY(ir_calibration)
+	ADD_SUBDIRECTORY(skybot)
+ENDIF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/COMPILE_IT")
+
+

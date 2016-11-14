@@ -1,0 +1,23 @@
+digraph G {
+node [shape=box];
+"link_base" [label="link_base"];
+"link_base_desp" [label="link_base_desp"];
+"link_laser" [label="link_laser"];
+"link_plancha_bajo_laser" [label="link_plancha_bajo_laser"];
+"link_plancha_der_laser" [label="link_plancha_der_laser"];
+"link_plancha_izq_laser" [label="link_plancha_izq_laser"];
+"link_torso" [label="link_torso"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"link_base" -> "joint_base_base_desp" [label="xyz: 0 -0.1 0 \nrpy: 0 -0 0"]
+"joint_base_base_desp" -> "link_base_desp"
+"link_base" -> "joint_base_laser" [label="xyz: 0.261 0 0.339 \nrpy: 0 -0 0"]
+"joint_base_laser" -> "link_laser"
+"link_base" -> "joint_base_plancha_bajo_laser" [label="xyz: 0.197 0 0.244 \nrpy: 0 -0 0"]
+"joint_base_plancha_bajo_laser" -> "link_plancha_bajo_laser"
+"link_base" -> "joint_base_plancha_lateral_der_laser" [label="xyz: 0.202 -0.103 0.344 \nrpy: 0 -0 0"]
+"joint_base_plancha_lateral_der_laser" -> "link_plancha_der_laser"
+"link_base" -> "joint_base_plancha_lateral_izq_laser" [label="xyz: 0.202 0.103 0.344 \nrpy: 0 -0 0"]
+"joint_base_plancha_lateral_izq_laser" -> "link_plancha_izq_laser"
+"link_base" -> "joint_base_torso" [label="xyz: -0.197 0 0.893 \nrpy: 0 -0 0"]
+"joint_base_torso" -> "link_torso"
+}

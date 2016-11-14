@@ -1,0 +1,18 @@
+include "map.inc"
+include "robot.inc"
+
+window(
+	size [700.000 700.000]
+	scale 200
+)
+
+floorplan(
+	bitmap "bitmaps/cave.png"
+	size [5 5 1.5]
+)
+
+robot(
+	name "wall"
+	pose [-1 0 0 0]
+	color "green"
+)

@@ -1,0 +1,16 @@
+ # A service definition for a standard forward kinematics service
+#Header header
+bool hola
+---
+#Posicion, orientación y ¿velocidad? objetivo
+geometry_msgs/Point32 posic
+geometry_msgs/Vector3 rpy
+#geometry_msgs/Twist twist
+
+#Permite indicar si hay que tener en cuanta la orientación del efector final
+bool ori
+
+#Marca la última posición de una trayectoria
+bool ultimo
+
+int32 error_code

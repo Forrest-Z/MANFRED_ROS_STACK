@@ -1,0 +1,22 @@
+	svilches:
+Files needed for genloc:
+- internal_map.bmp
+	bmp file, RGB
+	The map is 1.20m width, 1.10m high
+	Resolution: 0.005m/pix
+
+- sensor_log.dat
+	The first line describes the sensor used to take the measurements. It contains, separated by a space:
+		string type; 		// Letter located at the beginning of each serial sensor log to discern from which sensor the data comes
+		float defaultSigma;	// Sensor uncertainty in m (measurement +- uncertainty) TODO 
+		float fov;			// Sensor Field Of View (Angle of detection) IN RADIANS!!
+		float minRange;		// Sensor minimum distance to detect an obstacle reliably (m)
+		float maxRange;		// Sensor maximum distance to detect an obstacle reliably (m)
+		Pose sensorPose;	// Relative position and pointing angle of the sensor w.r.t. the axis of the servo
+		Vector2D servoCenter;// Relative position of the axis of the servo w.r.t. the body of the robot
+		float startAngle;	// Maximum angle (wrt the x axis of the robot) that the servo can point
+		float endAngle;		// Minimum .......
+		int servoSteps;		// Number of different positions to where the servo can point  	
+	The next lines contains:
+		-Relative angle between the servo center position and the current position (in radians)
+		-Distance to obstacle (in meters)

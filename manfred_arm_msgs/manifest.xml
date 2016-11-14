@@ -1,0 +1,17 @@
+<package>
+  <description brief="manfred_arm_msgs">
+     TO DO.
+  </description>
+  <author>David Alvarez, email:dasanche@ing.uc3m.es, Juan Fco Rascón Crespo, email:jfrascon@gmail.com</author>  
+  <license>LGPL</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/</url>
+  <depend package="actionlib"/>
+  <depend package="actionlib_msgs"/>
+  <depend package="geometry_msgs"/>  
+  <depend package="roscpp" />
+  <depend package="rospy" />
+  <depend package="sensor_msgs"/>  
+  <depend package="std_msgs"/>
+  <!--<depend package="rosbag"/>-->
+</package>

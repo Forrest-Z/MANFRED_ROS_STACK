@@ -1,0 +1,13 @@
+# actual joint state
+sensor_msgs/JointState joint_state
+
+#Posicion y orientación objetivo
+geometry_msgs/Point32 goal_posic
+geometry_msgs/Quaternion goal_quat
+
+---
+
+#joint state including the robot position
+sensor_msgs/JointState joint_state
+
+int64 error_code

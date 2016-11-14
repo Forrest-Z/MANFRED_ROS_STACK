@@ -1,0 +1,11 @@
+<package>
+  <description brief="Modelo URDF Manfred">
+	  Modelo URDF Manfred
+  </description>
+  <author>Juan Fco Rascón Crespo</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/urdf_tutorial</url>
+</package>
+
+

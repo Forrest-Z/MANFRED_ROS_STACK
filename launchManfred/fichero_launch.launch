@@ -1,0 +1,32 @@
+<launch>
+
+	<!-- Nodos desarrollados en ROS -->	
+	<arg name="fichero_urdf_Manfred" default="$(find urdf_Manfred)/Manfred.urdf" />	
+	<param name="robot_description" textfile="$(arg fichero_urdf_Manfred)" />
+	<node pkg="robot_state_publisher" type="state_publisher" name = "nodoPublicadorEstadoManfred" />
+	
+	<!--
+	<arg name="gui" default="False" />
+	<param name="use_gui" value="$(arg gui)"/>
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>->
+	-->
+	
+	<arg name="mapa" default="Mapa_parcial_2" />
+	<param name="NombreMapa" value="$(find mapas)/$(arg mapa).bmp" />
+	<node pkg="map_server" type="map_server" name="nodoServidorMapa" args="$(find mapas)/$(arg mapa).yaml" />
+	
+	<!-- Nodos desarrollados para Manfred -->
+	<!-- EL PRIMER NODO SIEMPRE ES NodoConfiguracionRobot porque guarda parametros en el nodo master -->
+	<node pkg="configuracionRobot" type="binNodoConfiguracionRobot" name="nodoConfiguracionRobot" />	
+	<node pkg="odometria" type="binNodoOdometria" name="nodoOdometria" />
+	<node pkg="sicks3000" type="binNodoSicks3000" name="nodoSicks3000" />	
+	<!--
+	<node pkg="localizacionEvolucionDiferencial" type="binNodoLocalizacionEvolucionDiferencial" name="nodoLocalizacionEvolucionDiferencial" output="screen" />
+	-->
+	<node pkg="localizacionEvolucionDiferencial" type="binNodoLocalizacionEvolucionDiferencial" name="nodoLocalizacionEvolucionDiferencial"/>
+	
+    <!-- Nodo de visualizacion -->	
+	<arg name="fichero_config_rviz" default="config_rviz.rviz" />
+	<node pkg="rviz" type="rviz" name="rviz"  args="-d $(find urdf_Manfred)/$(arg fichero_config_rviz)" />
+	
+</launch>

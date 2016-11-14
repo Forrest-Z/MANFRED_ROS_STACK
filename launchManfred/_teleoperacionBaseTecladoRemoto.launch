@@ -1,0 +1,25 @@
+
+<launch>
+
+	<!-- <env name="LD_LIBRARY_PATH" value="/home/manfred/Documentos/Dropbox_Manfred/Dropbox/Manfred_v2/Manfred/Software_ROS/pilas/pila_unica/pmac/lib"/> -->
+
+	<machine name="manfred" address="manfreduc3m" user="manfred" password="manfredov2" ros-root="/opt/ros/electric/ros" ros-package-path="/opt/ros/electric/stacks:/home/manfred/Documentos/ros" default="never" />
+
+	<!--<node machine="manfred" pkg="teleop_base_teclado" name="nodo_teleop_base_teclado_sus" type="bin_nodo_teleop_base_teclado_sus"/> -->
+	<!--<node pkg="teleop_base_teclado" name="nodo_teleop_base_teclado_pub" type="bin_nodo_teleop_base_teclado_pub" output="screen"/> -->
+
+	<node machine="manfred" pkg="transformaciones_estaticas" name="nodo_transf_estaticas" type="bin_nodo_transf_estaticas" />
+	<node machine="manfred" pkg="sicks3000" name="nodo_sicks3000" type="bin_nodo_sicks3000" />
+	<node machine="manfred" pkg="odometria" name="nodo_odometria" type="bin_nodo_odometria" />
+	<node machine="manfred" pkg="gmapping" name="gmapping" type="slam_gmapping" args="scan:=topic_sicks3000">
+		<param name="odom_frame" value="sr_odom" />
+		<param name="base_frame" value="sr_base" />
+	</node>
+	<node pkg="rviz" name="rviz" type="rviz" />
+
+	<!-- <arg name="dir_bag_slam" default="/home/manfred/Escritorio/mapa_slam" /> -->
+	<!-- <node pkg="rosbag" name="nodo_rosbag" type="record" args="-O $(arg dir_bag_slam) -a"/> -->
+	<!-- rosbag record -a -->
+	<!-- rosrun map_server map_server -->
+
+</launch>

@@ -1,0 +1,164 @@
+Cmp-Mod V01 Genere par PcbNew le Thu 15 Dec 2011 02:11:40 PM CET
+
+BeginCmp
+TimeStamp = /4EE6826E;
+Reference = CT1;
+ValeurCmp = ~;
+IdModule  = CON2X5A;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68272;
+Reference = CT_DOC1;
+ValeurCmp = EP_DOC;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68271;
+Reference = CT_DOC2;
+ValeurCmp = CT_DOC;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68DD6;
+Reference = D0;
+ValeurCmp = LED;
+IdModule  = LED-5MM;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68D38;
+Reference = D1;
+ValeurCmp = LED;
+IdModule  = LED-5MM;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68275;
+Reference = IR_L0;
+ValeurCmp = GP2Y0A21;
+IdModule  = GP2Y0A21_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE686AB;
+Reference = IR_L1;
+ValeurCmp = GP2Y0A21;
+IdModule  = GP2Y0A21_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE686B2;
+Reference = IR_L2;
+ValeurCmp = GP2Y0A21;
+IdModule  = GP2Y0A21_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE686BE;
+Reference = IR_L3;
+ValeurCmp = GP2Y0A21;
+IdModule  = GP2Y0A21_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE686C5;
+Reference = IR_L4;
+ValeurCmp = GP2Y0A21;
+IdModule  = GP2Y0A21_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68B8F;
+Reference = IR_S0;
+ValeurCmp = GP2Y0A21;
+IdModule  = GP2D150A_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68B95;
+Reference = IR_S1;
+ValeurCmp = GP2Y0A21;
+IdModule  = GP2D150A_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68DD4;
+Reference = R1;
+ValeurCmp = R;
+IdModule  = R3-LARGE_PADS;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68DD5;
+Reference = R2;
+ValeurCmp = R;
+IdModule  = R3-LARGE_PADS;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68D8A;
+Reference = R3;
+ValeurCmp = R;
+IdModule  = R3-LARGE_PADS;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68D4B;
+Reference = R4;
+ValeurCmp = R;
+IdModule  = R3-LARGE_PADS;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68DD7;
+Reference = TRT1;
+ValeurCmp = NPN;
+IdModule  = TO92;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68273;
+Reference = TRT2;
+ValeurCmp = NPN;
+IdModule  = TO92;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68276;
+Reference = U1;
+ValeurCmp = CD4097B;
+IdModule  = DIP-24__600_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68274;
+Reference = US0;
+ValeurCmp = HC-SR04;
+IdModule  = HC-SR04;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68C0C;
+Reference = US1;
+ValeurCmp = HC-SR04;
+IdModule  = HC-SR04;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68C12;
+Reference = US2;
+ValeurCmp = HC-SR04;
+IdModule  = HC-SR04;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EE68C19;
+Reference = US3;
+ValeurCmp = HC-SR04;
+IdModule  = HC-SR04;
+EndCmp
+
+EndListe

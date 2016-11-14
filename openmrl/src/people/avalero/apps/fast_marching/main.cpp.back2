@@ -1,0 +1,374 @@
+#include <mrcore.h>
+#include "fmgridmap.h"
+#include "customgraphs.h"
+#include <float.h>
+#include <iomanip>
+
+using namespace mr;
+using namespace std;
+
+
+void printGraph(PoseSpeedNode *** nG, int width, int height){
+	for (int i=0;i<width;i++){
+		for (int j=0;j<width;j++){
+			if (nG[i][j]==NULL) cout << "__\t";
+			else cout << "*\t";
+		}
+		cout << endl;
+	} 
+}
+class Point2i{
+	public:
+	Point2i(unsigned char x, unsigned char y){this->x=x; this->y=y;}
+
+	unsigned char x;
+	unsigned char y;
+};
+
+vector<Point2i> queue;
+
+int main(void){
+
+	LabeledGridMap map(50,50,0.1,LabeledGridMap::FREE);
+
+	int x_center,y_center;
+	x_center = map.getWidth()/2;
+	y_center = map.getHeight()/2;
+	map.setCellValue(x_center,y_center,LabeledGridMap::OBSTACLE);
+
+	Image* img = new Image;
+	img->load("initmap.bmp");
+	map.loadFromImage(img,50,0.1);
+	
+	MRTime timer;
+	
+	timer.precistic();
+	FMGridMap fmmap(&map,1,3);
+
+	cout << "Fast Marching Total time: " << timer.precistoc() << endl;
+
+	fmmap.convertToImage()->save("fmmap.bmp");
+	
+	//********* BUILD GRAPH ***************///
+	timer.precistic();
+
+	/** CREATE MATRIX FOR STORING REFERENCES TO THE NODES **/
+
+	cout << "creating graph" << endl;
+	
+	PoseSpeedNode *** nodesGrid;
+	nodesGrid = new PoseSpeedNode**[fmmap.getWidth()];
+	for (int i=0; i<fmmap.getWidth();i++){
+		nodesGrid[i]=new PoseSpeedNode*[fmmap.getHeight()];
+		for (int j=0; j<fmmap.getHeight(); j++) nodesGrid[i][j]=NULL;
+	}
+
+
+	PoseSpeedGraph graph;
+
+	vector<PoseSpeedNode*> heap;
+
+	FMPixelData data = fmmap.getCellValue(0,0);
+	double x,y; fmmap.GridToWorld(data.x,data.y,x,y);
+	PoseSpeed ps(Pose(x,y),data.d,0,0);
+	nodesGrid[0][0] = graph.addNode(ps);
+	heap.push_back(nodesGrid[0][0]);
+
+	while(!heap.empty()){
+		
+		PoseSpeedNode* current = heap.back(); heap.pop_back();
+
+		//REQUIRED VARS
+		int jump = current->getValue().speed / fmmap.getResolution(); //<- the distance the robot runs in one secod
+		int i=current->getValue().i;
+		int j=current->getValue().j;
+		bool node_around;
+		int next_i, next_j;
+
+		jump = max(jump,1);
+				
+///////////////////////////////////////////////////////////////		
+
+		// NEXT NODE IN DIAGONAL UP-RIGHT
+		next_i = i+jump;
+		next_j = j+jump;
+
+		next_i = min(next_i,fmmap.getWidth()-1);
+		next_j = min(next_j,fmmap.getHeight()-1);
+
+		if (next_i == i && next_j == j) node_around = true;
+		else node_around = false;
+
+		//cout << "up-right" << endl;
+		
+		for (int aux_i = i ; aux_i <= next_i; aux_i++){
+			for (int aux_j = j ; aux_j <= next_j; aux_j++){
+				if (aux_i==i && aux_j==j) continue;
+				//cout << "aux: " << aux_i << "," << aux_j << endl;
+				node_around = node_around || ( nodesGrid[aux_i][aux_j] != NULL );
+				if (node_around) break;
+			}
+			if (node_around) break;
+		}
+
+		if (!node_around){
+			//cout << "insert " << next_i << ", " << next_j << endl;
+			FMPixelData data = fmmap.getCellValue(next_i,next_j);
+			double x,y; fmmap.GridToWorld(data.x,data.y,x,y);
+			PoseSpeed ps(Pose(x,y),data.d,next_i,next_j);
+			//cout << data.x << " " << data.y << endl;
+			nodesGrid[next_i][next_j] = graph.addNode(ps);
+			heap.push_back(nodesGrid[next_i][next_j]);
+		}
+
+		
+		///////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////		
+
+		// NEXT NODE IN DIAGONAL DOWN-RIGHT
+		next_i = i+jump;
+		next_j = j-jump;
+
+		next_i = min(next_i,fmmap.getWidth()-1);
+		next_j = max(next_j,0);
+
+		if (next_i == i && next_j == j) node_around = true;
+		else node_around = false;
+
+		//cout << "bottom-right" << endl;
+
+		//cout << "next : " << next_i << "," << next_j << endl;
+		
+		for (int aux_i = i ; aux_i <= next_i; aux_i++){
+			for (int aux_j = j ; aux_j >= next_j; aux_j--){
+				if (aux_i==i && aux_j==j) continue;
+				//cout << aux_i <<" , " << aux_j<< endl;
+
+				node_around = node_around || ( nodesGrid[aux_i][aux_j] != NULL );
+				if (node_around) break;
+			}
+			if (node_around) break;
+		}
+
+		if (!node_around){
+			//cout << "insert " << next_i << ", " << next_j << endl;
+			FMPixelData data = fmmap.getCellValue(next_i,next_j);
+			double x,y; fmmap.GridToWorld(data.x,data.y,x,y);
+			PoseSpeed ps(Pose(x,y),data.d,next_i,next_j);
+			//cout << data.x << " " << data.y << endl;
+			nodesGrid[next_i][next_j] = graph.addNode(ps);
+			heap.push_back(nodesGrid[next_i][next_j]);
+		}
+
+		//string a; cin >> a;
+
+		///////////////////////////////////////////////////////////////		
+		///////////////////////////////////////////////////////////////		
+
+		// NEXT NODE IN DIAGONAL DOWN-LEFT
+		next_i = i-jump;
+		next_j = j+jump;
+
+		next_i = max(next_i,0);
+		next_j = min(next_j,fmmap.getHeight()-1);
+
+		if (next_i == i && next_j == j) node_around = true;
+		else node_around = false;
+
+		//cout << "bottom-right" << endl;
+
+		//cout << "next : " << next_i << "," << next_j << endl;
+		
+		for (int aux_i = i ; aux_i >= next_i; aux_i--){
+			for (int aux_j = j ; aux_j <= next_j; aux_j++){
+				if (aux_i==i && aux_j==j) continue;
+				//cout << aux_i <<" , " << aux_j<< endl;
+
+				node_around = node_around || ( nodesGrid[aux_i][aux_j] != NULL );
+				if (node_around) break;
+			}
+			if (node_around) break;
+		}
+
+		if (!node_around){
+			//cout << "insert " << next_i << ", " << next_j << endl;
+			FMPixelData data = fmmap.getCellValue(next_i,next_j);
+			double x,y; fmmap.GridToWorld(data.x,data.y,x,y);
+			PoseSpeed ps(Pose(x,y),data.d,next_i,next_j);
+			//cout << data.x << " " << data.y << endl;
+			nodesGrid[next_i][next_j] = graph.addNode(ps);
+			heap.push_back(nodesGrid[next_i][next_j]);
+		}
+
+		//string a; cin >> a;
+
+		///////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////		
+
+		// NEXT NODE IN DIAGONAL UP-LEFT
+		next_i = i-jump;
+		next_j = j-jump;
+
+		next_i = max(next_i,0);
+		next_j = max(next_j,0);
+
+		if (next_i == i && next_j == j) node_around = true;
+		else node_around = false;
+
+		//cout << "bottom-right" << endl;
+
+		//cout << "next : " << next_i << "," << next_j << endl;
+		
+		for (int aux_i = i ; aux_i >= next_i; aux_i--){
+			for (int aux_j = j ; aux_j >= next_j; aux_j--){
+				if (aux_i==i && aux_j==j) continue;
+				//cout << aux_i <<" , " << aux_j<< endl;
+
+				node_around = node_around || ( nodesGrid[aux_i][aux_j] != NULL );
+				if (node_around) break;
+			}
+			if (node_around) break;
+		}
+
+		if (!node_around){
+			//cout << "insert " << next_i << ", " << next_j << endl;
+			FMPixelData data = fmmap.getCellValue(next_i,next_j);
+			double x,y; fmmap.GridToWorld(data.x,data.y,x,y);
+			PoseSpeed ps(Pose(x,y),data.d, next_i, next_j);
+			//cout << data.x << " " << data.y << endl;
+		
+			nodesGrid[next_i][next_j] = graph.addNode(ps);
+			heap.push_back(nodesGrid[next_i][next_j]);
+		}
+
+		//string a; cin >> a;
+
+		///////////////////////////////////////////////////////////////		
+		
+	}
+
+	
+	set<PoseSpeedNode*> nodes = graph.getNodes();
+	
+	cout << "nodes size " << nodes.size() << endl;
+	
+	set<PoseSpeedNode*>::iterator it;
+	for (it = nodes.begin(); it!=nodes.end(); it++){
+		PoseSpeedNode* current = *it;
+		if (current->getValue().speed == 0){
+			int i=current->getValue().i;
+			int j=current->getValue().j;
+			graph.removeNode(current);
+			nodesGrid[i][j] = NULL;
+		}
+	}
+
+	nodes = graph.getNodes();
+	cout << "final nodes size: " << nodes.size() << endl;
+	
+	//create image:
+	for (it = nodes.begin(); it!=nodes.end(); it++){
+		PoseSpeedNode* current = *it;
+		int i=current->getValue().i;
+		int j=current->getValue().j;
+
+		unsigned char color[] = {255,0,0};
+		img->setPixel(i,img->getHeight()-1-j,color);
+	}
+
+	img->save("graph.bmp");
+	
+	///////////////////////////////////
+	//////  CREATE EDGES //////////////
+	///////////////////////////////////
+
+/*
+	cout << "creating edges" << endl;
+	nodes = graph.getNodes();
+	for (it = nodes.begin(); it!=nodes.end(); it++){
+		PoseSpeedNode* current = *it;
+		//REQUIRED VARS
+
+		//cout << 1 << endl;
+		int jump = current->getValue().speed / fmmap.getResolution(); //<- the distance the robot runs in one secod
+
+		int i=current->getValue().i;
+		int j=current->getValue().j;
+
+		bool node_around;
+
+		int next_i, next_j;
+		jump = max(jump,1);
+		//cout << 2 << endl;
+		for (int aux_i = i-jump; aux_i <= i+jump ; aux_i++){
+			for (int aux_j = j-jump; aux_j <= i+jump ; aux_j++){
+				//cout << 1 << endl;
+				if (aux_i == i && aux_j == j) continue;
+
+				//avoid going out of the map
+				
+				if (aux_i <= i) aux_i=max(aux_i,0);
+				if (aux_i > i) aux_i=min(aux_i, fmmap.getWidth()-1);
+				if (aux_j <= j) aux_j=max(aux_j,0);
+				if (aux_j > j) aux_j=min(aux_j, fmmap.getHeight()-1);
+
+				if (nodesGrid[aux_i][aux_j]!=NULL){
+					graph.addEdge(current, nodesGrid[aux_i][aux_j]);
+				}
+				
+				if (aux_j == fmmap.getHeight()-1) break;
+			}
+			if (aux_i == fmmap.getWidth()-1) break;
+		}
+
+	}
+
+
+	graph.recomputeEdgesWeight();
+	cout << "Graph Building Total time: " << timer.precistoc() << endl;
+
+	//printGraph( nodesGrid, fmmap.getWidth() , fmmap.getHeight() );
+
+
+*/	
+	//******** END BUILDING GRAPH ********************
+
+	AstarPoseSpeedSearcher searcher(&graph,0,DBL_MAX,1.5);
+	searcher.setGraph(&graph);
+	double cost=1;
+
+	timer.precistic();
+	cout << "a" << endl;
+	if (searcher.findPath(nodesGrid[10][10], nodesGrid[492][490],cost))
+		cout << "Path found. Time:" << cost <<  endl;
+	cout << "Path Finding Total time: " << timer.precistoc() << endl;
+	
+	vector<PoseSpeedNode*> path = searcher.getPath();
+	cout << path.size() << endl;
+	unsigned char color[] = {0,0,255};
+	for (int i=0;i<path.size();i++){
+		PoseSpeedNode *node = path[i];
+		int pixelX=node->getValue().i;
+		int pixelY=node->getValue().j;
+		img->setPixel(pixelX,img->getHeight()-1-pixelY,color);
+	}
+
+	img->save("path.bmp");
+
+	delete img;
+	
+	img = fmmap.convertToImage();
+	for (int i=0;i<path.size();i++){
+		PoseSpeedNode *node = path[i];
+		int pixelX=node->getValue().i;
+		int pixelY=node->getValue().j;
+		img->setPixel(pixelX,img->getHeight()-1-pixelY,color);
+	}
+	
+	
+	img->save("fmmap.bmp");
+
+	delete img;
+	
+	return 1;
+}

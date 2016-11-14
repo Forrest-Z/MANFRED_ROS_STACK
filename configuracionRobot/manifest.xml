@@ -1,0 +1,17 @@
+<package>
+  <description brief="configuracionRobot">
+
+     configuracionRobot
+
+  </description>
+  <author>disa1301</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/configuracionRobot</url>
+  <depend package="roscpp"/>
+  <depend package="rospy"/>
+  <rosdep name="tinyxml" />
+
+</package>
+
+

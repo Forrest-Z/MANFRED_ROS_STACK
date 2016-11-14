@@ -1,0 +1,31 @@
+<package>
+  <description>
+     This package contains the functions necessary to communicate with pmac driver
+  </description>
+  <author>jfrascon</author>
+  <license>BSD</license>
+  <!-- This package doesn't depend on ROS-framework -->
+  <!--<depend package="roscpp"/>-->
+  <!--<export>-->
+<!--
+
+In the next URL ROS http://www.ros.org/wiki/Manifest/XML#export we can read:
+
+1.- Note the use of -Wl,-rpath,-L${prefix}/lib. This tells the linker to look in ${prefix}/lib for shared libraries when running an executable.
+This flag is necessary to allow the use of shared libraries that reside in a variety of directories, without requiring the user to modify
+LD_LIBRARY_PATH.
+
+2.-  Every time you add a -Lfoo option to your exported lflags, add a matching -Wl,-rpath,foo option. The -Wl options can be chained together, e.g.:
+-Wl,-rpath,foo,-rpath,bar.
+
+Despues de leer el Parrafo_2 me ha resultado extraño que en la instruccion -Wl,-rpath,-L${prefix}/lib aparezca la -L
+Ademas en la pagina web "http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html" leo que la sintaxis que se
+usa es -Wl,-rpath,$(DEFAULT_LIB_INSTALL_PATH), sin la -L
+Ademas los paquetes de ROS del care-o-bot tampoco hacen uso de -L, asi que llego a la conclusion de que el -L quedando
+
+-Wl,-rpath,${prefix}/lib
+-->
+
+    <!--<cpp cflags="-I${prefix}/include" lflags="-L${prefix}/lib -Wl,-rpath,${prefix}/lib -lpmac"/>-->
+  <!--</export>-->
+</package>

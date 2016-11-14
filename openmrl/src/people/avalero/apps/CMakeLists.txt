@@ -1,0 +1,3 @@
+#ADD_SUBDIRECTORY(graphExample)
+#ADD_SUBDIRECTORY(grids)
+ADD_SUBDIRECTORY(fast_marching)

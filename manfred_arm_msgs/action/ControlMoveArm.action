@@ -1,0 +1,34 @@
+#goal definition
+#Header header
+float32 max_frequency
+duration time_offset
+geometry_msgs/Point32 posic
+geometry_msgs/Vector3 rpy
+#Permite indicar si hay que tener en cuanta la orientación del efector final
+bool ori
+#Marca la última posición de una trayectoria
+bool ultimo
+# ¿Hara falta la velocidad? Al menos hace falta para la funcion de simulacion del robot, tanto vel como position
+sensor_msgs/JointState joint_state
+---
+#result definition
+#Header header
+actionlib_msgs/GoalStatus resultStatus
+geometry_msgs/Point32 posic
+geometry_msgs/Vector3 rpy
+#para simulacion
+sensor_msgs/JointState joint_state
+---
+#feedback
+#Header header
+actionlib_msgs/GoalStatus feedbackStatus
+geometry_msgs/Point32 posic_goal
+geometry_msgs/Vector3 rpy_goal
+geometry_msgs/Point32 posic_actual
+geometry_msgs/Vector3 rpy_actual
+#Permite indicar si hay que tener en cuanta la orientación del efector final
+bool ori
+#Marca la última posición de una trayectoria
+bool ultimo
+#para simulacion
+sensor_msgs/JointState joint_state
